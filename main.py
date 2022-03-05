@@ -16,10 +16,12 @@ class Main:
 
         games_set = rt.read_games("Игры.xlsx")
         teams = rt.read_teams("Команды.xlsx")
+        result_tables = {}
 
         if 'chgk' in games_set:
             chgk = Chgk(teams)
             chgk.read_quest("ЧГК_ответы.xlsx")
+            result_tables['ЧГК'] = chgk.get_table()
 
         # if 'pg' in games_set:
         #     pentagon = Pentagon(teams)
