@@ -32,6 +32,5 @@ class Chgk:
             table[title] = answers
 
         table['Итог'] = table[quest_titles].sum(axis=1)
-        table = table.sort_values('Итог', ascending=False)
 
         return table

@@ -48,7 +48,6 @@ class Pentagon:
             table[title] = result
 
             tables = tables.join(table)
-            #print(table)
 
         total = []
         row = 0
@@ -64,7 +63,6 @@ class Pentagon:
             row += 1
 
         tables['Итог'] = total
-        tables = tables.sort_values('Итог', ascending=False)
 
         return tables
     
