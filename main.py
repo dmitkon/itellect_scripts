@@ -1,42 +1,37 @@
 from chgk import Chgk
 from chains import Chains
 from pentagon import Pentagon
-from team import Team
 import pandas as pd
+import create_tables as ct
+import read_tables as rt
 
 class Main:
     def run(self):
         print("Run app")
 
-        teams = read_teams("Команды.xlsx")
+        ct.create_table_kit("Игры.xlsx", ct.GAMES_TABLE)
+        ct.create_table_kit("Команды.xlsx", ct.TEAMS_TABLE)
+        ct.create_table_kit("ЧГК_ответы.xlsx", ct.get_chgk_answers_table(12))
+        ct.create_table_kit("Пентагон_ответы.xlsx", ct.PENTAGON_TABLE)
 
-        chgk = Chgk(teams)
-        chgk.read_quest("ЧГК_ответы.xlsx")
+        games_set = rt.read_games("Игры.xlsx")
+        teams = rt.read_teams("Команды.xlsx")
 
-        chains = Chains(teams)
-        chains.read_chains("Цепочки_ответы.xlsx")
+        if 'chgk' in games_set:
+            chgk = Chgk(teams)
+            chgk.read_quest("ЧГК_ответы.xlsx")
 
-        pentagon = Pentagon(teams)
-        pentagon.read_pentagon("Пентагон_ответы.xlsx")
+        # if 'pg' in games_set:
+        #     pentagon = Pentagon(teams)
+        #     pentagon.read_pentagon("Пентагон_ответы.xlsx")
+
+        # chains = Chains(teams)
+        # chains.read_chains("Цепочки_ответы.xlsx")
         
-        total_table = get_result(teams, chgk.get_table(), pentagon.get_table(), chains.get_table())
-        print(total_table)
+        # total_table = get_result(teams, chgk.get_table(), pentagon.get_table(), chains.get_table())
+        # print(total_table)
 
-        write_table({'ЧГК': chgk.get_table(), 'Цепочки': chains.get_table(), 'Пентагон': pentagon.get_table(), 'Итог': total_table}, "./result/Протокол.xlsx")
-
-def read_teams(path):
-    data = pd.read_excel(path)
-    data = data.sort_values('Номер')
-
-    row = 0
-    teams = []
-    while row < data.shape[0]:
-        team = Team(data['Название'][row], int(data['Номер'][row]))
-        teams.append(team)
-        
-        row += 1
-
-    return teams
+        # write_table({'ЧГК': chgk.get_table(), 'Цепочки': chains.get_table(), 'Пентагон': pentagon.get_table(), 'Итог': total_table}, "./result/Протокол.xlsx")
 
 def write_table(sheets, path):
     writer = pd.ExcelWriter(path, engine='openpyxl')
