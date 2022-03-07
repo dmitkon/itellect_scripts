@@ -30,11 +30,11 @@ class Pentagon:
             table = pd.DataFrame()
 
             for j in range(5):
-                title = 'Подсказка ' + str(i + 1) + '.' + str(5 - j)
+                title = 'П' + str(5 - j) + '.' + str(i + 1)
                 table[title] = [np.nan for team in self.teams]
 
             for result in self.themes[i]:
-                title = 'Подсказка ' + str(i + 1) + '.' + str(result.get('hint'))
+                title = 'П' + str(result.get('hint')) + '.' + str(i + 1)
                 table.loc[result.get('num') - 1, title] = result.get('res')
 
             title = 'Итог ' + str(i + 1)
@@ -72,7 +72,7 @@ def get_theme_result(table, i, row):
     minus = 0
 
     while hint > 0:
-        title = 'Подсказка ' + str(i + 1) + '.' + str(hint)
+        title = 'П' + str(hint) + '.' + str(i + 1)
 
         if table[title][row] == 1:
             result = hint
