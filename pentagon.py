@@ -17,8 +17,8 @@ class Pentagon:
 
         row = 0
         while row < data.shape[0]:
-            if str(data['Команда'][row]) != str(np.nan):
-                self.themes[data['Тема'][row] - 1].append({'num': int(data['Команда'][row]), 'hint': int(data['Подсказка'][row]), 'res': int(data['Зачёт'][row])})
+            if str(data['№ команды'][row]) != str(np.nan):
+                self.themes[data['Тема'][row] - 1].append({'num': int(data['№ команды'][row]), 'hint': int(data['Подсказка'][row]), 'res': int(data['Зачёт'][row])})
 
             row += 1
 

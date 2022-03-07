@@ -1,5 +1,6 @@
 import pandas as pd
 from team import Team
+from games import Games
 
 def read_games(path):
     data = pd.read_excel(path)
@@ -12,7 +13,7 @@ def read_games(path):
         
         row += 1
 
-    return games
+    return Games(data, games)
 
 def read_teams(path):
     data = pd.read_excel(path)
