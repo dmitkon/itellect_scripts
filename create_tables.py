@@ -19,5 +19,9 @@ def create_table_kit(path, table):
         writer = pd.ExcelWriter(path, engine='openpyxl')
 
         sheet.to_excel(writer, sheet_name=table.get('name'), index=False)
+        
+        for i, column in enumerate(sheet):
+            column_width = max(sheet[column].astype(str).map(len).max(), len(column))
+            writer.sheets[table.get('name')].column_dimensions[chr(i + 65)].width = column_width + 2
 
         writer.save()

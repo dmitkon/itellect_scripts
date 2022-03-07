@@ -4,6 +4,7 @@ from pentagon import Pentagon
 import pandas as pd
 import create_tables as ct
 import read_tables as rt
+import write_tables as wt
 
 class Main:
     def run(self):
@@ -11,7 +12,7 @@ class Main:
 
         ct.create_table_kit("Игры.xlsx", ct.GAMES_TABLE)
         games = rt.read_games("Игры.xlsx")
-        
+
         ct.create_table_kit("Команды.xlsx", ct.TEAMS_TABLE)
         ct.create_table_kit("ЧГК_ответы.xlsx", ct.get_chgk_answers_table(games.get_game_options('chgk').get('Кол-во')))
         ct.create_table_kit("Пентагон_ответы.xlsx", ct.PENTAGON_TABLE)
@@ -28,14 +29,12 @@ class Main:
             pentagon = Pentagon(teams)
             pentagon.read_pentagon("Пентагон_ответы.xlsx")
             result_tables[games.get_game_options('pg').get('Игра')] = pentagon.get_table()
-
-        # chains = Chains(teams)
-        # chains.read_chains("Цепочки_ответы.xlsx")
         
         total_table = get_result(games, teams, result_tables)
+        result_tables['Итог'] = total_table
         print(total_table)
 
-        # write_table(total_table, result_tables, "./result/Протокол.xlsx")
+        wt.write_table(result_tables, "./result/Протокол.xlsx")
 
 def get_result(games, teams, tables):
     result = pd.DataFrame({'Команда': [team.name for team in teams]})
