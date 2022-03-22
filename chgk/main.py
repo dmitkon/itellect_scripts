@@ -14,7 +14,10 @@ class Main:
             print("Кол-во вопросов:")
             quest_cnt = input()
 
-            ct.create_table_kit("ЧГК_ответы.xlsx", ct.get_chgk_answers_table(int(quest_cnt)))
+            if quest_cnt.isdigit():
+                ct.create_table_kit("ЧГК_ответы.xlsx", ct.get_chgk_answers_table(int(quest_cnt)))
+            else:
+                print("Ошибка ввода: введено не число")
         else:
             print("Название:")
             name = input()
