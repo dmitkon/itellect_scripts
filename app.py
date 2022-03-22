@@ -1,4 +1,4 @@
-from main import Main
+from tournament.main import Main
 
 app = Main()
 app.run()

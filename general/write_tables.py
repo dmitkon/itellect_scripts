@@ -8,6 +8,16 @@ def write_table(tables, path):
 
         for i, column in enumerate(tables[sheet_name]):
             column_width = max(tables[sheet_name][column].astype(str).map(len).max(), len(column))
-            writer.sheets[sheet_name].column_dimensions[chr(i + 65)].width = column_width + 2
+            
+            col = ""
+            j = i
+
+            while int(j / 26) != 0:
+                col = chr(j % 26 + 65) + col
+                j = int(j / 26) - 1
+
+            col = chr(j + 65) + col
+
+            writer.sheets[sheet_name].column_dimensions[col].width = column_width + 2
 
     writer.save()

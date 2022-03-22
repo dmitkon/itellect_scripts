@@ -23,8 +23,7 @@ class Pentagon:
             row += 1
 
     def get_table(self):
-        names = [team.name for team in self.teams]
-        tables = pd.DataFrame({'Команда': names})
+        tables = pd.DataFrame({'Команда': [team.name for team in self.teams], 'Номер': [team.num for team in self.teams]})
         
         for i in range(len(self.themes)):
             table = pd.DataFrame()
@@ -63,7 +62,6 @@ class Pentagon:
             row += 1
 
         tables['Итог'] = total
-
         return tables
     
 def get_theme_result(table, i, row):
